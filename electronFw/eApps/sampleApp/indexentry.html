@@ -19,9 +19,9 @@
     
 </body>
 <script>
+    const {ipcRenderer} = require('electron');
     console.info(`render process!`);
 
-    const {ipcRenderer} = require('electron');
     function sendData(){
 
         ipcRenderer.send('message', "hello from renderer!");
