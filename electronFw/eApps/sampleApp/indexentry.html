@@ -14,6 +14,7 @@
 
     <div>
         <button onclick="sendData();">click to send data to main process</button>
+        <p></p>
     </div>
     
     
@@ -27,8 +28,16 @@
         ipcRenderer.send('message', "hello from renderer!");
     }
 
-    ipcRenderer.on('message', (event, message) => {
-        console.info(message);
+    ipcRenderer.on('reply', (event, data)=> {
+        console.info(data);
+        document.querySelector('p').innerHTML = data;
     });
+
+    ipcRenderer.on('message', (event, data)=> {
+        console.info(`message event: `, data);
+        document.querySelector('p').innerHTML = data;
+    });
+
+    
 </script>
 </html>
