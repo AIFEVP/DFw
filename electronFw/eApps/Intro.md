@@ -18,3 +18,6 @@ reload main process
 ```
 app.on('ready', () => {})
 ```
+
+
+- frameless app - title bar, close/min/max etc

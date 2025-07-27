@@ -16,19 +16,19 @@ function createWindow() {
     });
 
 
-    const nested = new BrowserWindow({
-        width: 800,
-        height: 900,
-        // frame: false,
-        backgroundColor: '#31778fff',
-        webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
-        },
-    });
+    // const nested = new BrowserWindow({
+    //     width: 800,
+    //     height: 900,
+    //     // frame: false,
+    //     backgroundColor: '#31778fff',
+    //     webPreferences: {
+    //         nodeIntegration: true,
+    //         contextIsolation: false,
+    //     },
+    // });
 
     win.loadFile(path.join(__dirname, 'indexentry.html'));
-    nested.loadFile(path.join(__dirname, 'nestedyash.html'));
+    // nested.loadFile(path.join(__dirname, 'nestedyash.html'));
     win.webContents.openDevTools();
 }
 
