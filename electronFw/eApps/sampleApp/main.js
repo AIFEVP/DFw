@@ -1,0 +1,1 @@
+console.info(`welcome to electron!`);
