@@ -1,6 +1,6 @@
 console.info(`welcome to electron!`);
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 function createWindow() {
@@ -33,6 +33,10 @@ function createWindow() {
 }
 
 console.info(`main process!`);
+
+ipcMain.on('message', (event, message) => {
+    console.info(message);
+});
 
 app.whenReady().then(createWindow);
 

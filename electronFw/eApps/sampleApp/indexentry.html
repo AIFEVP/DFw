@@ -7,9 +7,28 @@
 </head>
 <body>
     <h5 style="background-color: burlywood;">welcome to electron!</h5>
+
+    <div>
+        <a href="nested.html">click here for Nested lion!</a>
+    </div>
+
+    <div>
+        <button onclick="sendData();">click to send data to main process</button>
+    </div>
+    
     
 </body>
 <script>
     console.info(`render process!`);
+
+    const {ipcRenderer} = require('electron');
+    function sendData(){
+
+        ipcRenderer.send('message', "hello from renderer!");
+    }
+
+    ipcRenderer.on('message', (event, message) => {
+        console.info(message);
+    });
 </script>
 </html>
