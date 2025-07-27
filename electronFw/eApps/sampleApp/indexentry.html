@@ -32,6 +32,8 @@
         });
     }
 
+    // not reply event, but message event
+
     ipcRenderer.on('reply', (event, data)=> {
         console.info(data);
         document.querySelector('p').innerHTML = JSON.stringify(data);
