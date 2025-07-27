@@ -13,6 +13,10 @@ function createWindow() {
         },
     });
     win.loadFile(path.join(__dirname, 'indexentry.html'));
+    win.webContents.openDevTools();
 }
 
+console.info(`main process!`);
+
 app.whenReady().then(createWindow);
+
