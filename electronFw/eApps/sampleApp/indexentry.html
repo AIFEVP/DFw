@@ -25,17 +25,21 @@
 
     function sendData(){
 
-        ipcRenderer.send('message', "hello from renderer!");
+        ipcRenderer.send('message', {
+            msg: "hello from renderer!",
+            time: new Date().toString(),
+            pid: process.pid
+        });
     }
 
     ipcRenderer.on('reply', (event, data)=> {
         console.info(data);
-        document.querySelector('p').innerHTML = data;
+        document.querySelector('p').innerHTML = JSON.stringify(data);
     });
 
     ipcRenderer.on('message', (event, data)=> {
         console.info(`message event: `, data);
-        document.querySelector('p').innerHTML = data;
+        document.querySelector('p').innerHTML = JSON.stringify(data);
     });
 
     

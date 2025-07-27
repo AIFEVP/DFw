@@ -36,7 +36,10 @@ console.info(`main process!`);
 
 ipcMain.on('message', (event, message) => {
     console.info(message);
-    event.reply('message', "hello from main, thank you!");
+    event.reply('message', {msg: "hello from main, thank you!",
+        time: new Date().toString(),
+        pid: process.pid
+    });
 });
 
 app.whenReady().then(createWindow);
