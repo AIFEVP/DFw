@@ -42,5 +42,14 @@ ipcMain.on('message', (event, message) => {
     });
 });
 
+
+app.on('before-quit', () => {
+    console.info('before-quit');
+});
+
+app.on('before-window-close', () => {
+    console.info('before-window-close');
+});
+
 app.whenReady().then(createWindow);
 
