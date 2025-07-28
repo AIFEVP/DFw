@@ -1,11 +1,27 @@
 console.info(`welcome to electron!`);
 
-const { app, BrowserWindow, ipcMain, webContents } = require('electron');
+const { app, BrowserWindow, ipcMain, webContents, Menu } = require('electron');
 const path = require('path');
 const windowStateKeeper = require('electron-window-state');
 
 let win;
 function createWindow() {
+    let ctxMenu = Menu.buildFromTemplate([
+        {
+            label: 'File',
+            submenu: [
+                { role: 'quit' }
+            ]
+        },
+        {
+            label: 'View',
+            submenu: [
+                { role: 'reload' },
+                { role: 'toggledevtools' }
+            ]
+        }
+    ]);
+
     const state = windowStateKeeper({
         height: 900,
         width: 600
@@ -46,6 +62,10 @@ function createWindow() {
 
     win.webContents.on('dom-ready', () => {
         console.info('dom-ready');
+    });
+
+    win.webContents.on('context-menu', () => {
+        ctxMenu.popup();
     });
 }
 
