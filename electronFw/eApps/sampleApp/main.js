@@ -2,11 +2,17 @@ console.info(`welcome to electron!`);
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const windowStateKeeper = require('electron-window-state');
 
+let win;
 function createWindow() {
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+    const state = windowStateKeeper({
+        height: 900,
+        width: 600
+    })
+    win = new BrowserWindow({
+        width: state.width,
+        height: state.height,
         frame: false,
         backgroundColor: '#6f1818',
         webPreferences: {
@@ -30,6 +36,9 @@ function createWindow() {
     win.loadFile(path.join(__dirname, 'indexentry.html'));
     // nested.loadFile(path.join(__dirname, 'nestedyash.html'));
     win.webContents.openDevTools();
+    console.info(`window created ${state.x} ${state.y}!`);
+
+    state.manage(win);
 }
 
 console.info(`main process!`);

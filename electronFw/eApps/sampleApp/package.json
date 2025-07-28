@@ -12,5 +12,8 @@
     "electronVersion": "37.2.4"
   },
   "author": "anikris/VP",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "electron-window-state": "^5.0.3"
+  }
 }
