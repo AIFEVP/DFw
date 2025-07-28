@@ -19,6 +19,12 @@ function createWindow() {
                 { role: 'reload' },
                 { role: 'toggledevtools' }
             ]
+        },
+        {
+            label: 'Help',
+            submenu: [
+                { role: 'about' }
+            ]
         }
     ]);
 
