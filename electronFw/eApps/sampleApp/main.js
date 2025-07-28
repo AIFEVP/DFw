@@ -1,6 +1,6 @@
 console.info(`welcome to electron!`);
 
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, webContents } = require('electron');
 const path = require('path');
 const windowStateKeeper = require('electron-window-state');
 
@@ -39,6 +39,14 @@ function createWindow() {
     console.info(`window created ${state.x} ${state.y}!`);
 
     state.manage(win);
+
+    win.webContents.on('did-finish-load', () => {
+        console.info('did-finish-load');
+    });
+
+    win.webContents.on('dom-ready', () => {
+        console.info('dom-ready');
+    });
 }
 
 console.info(`main process!`);
