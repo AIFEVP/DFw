@@ -1,0 +1,2 @@
+###### Apollo and graphql
+GraphQL is a query language for APIs and a runtime for executing those queries, while Apollo Server is a tool (a specific server implementation) that helps build a GraphQL API.
