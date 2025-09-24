@@ -1,0 +1,11 @@
+// my-angular-app/tsconfig.json
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es2020", "dom"]
+  }
+}
