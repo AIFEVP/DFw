@@ -29,18 +29,28 @@ namespace PlaywrightVideoExample
         [Test]
         public async Task TestGoogleSearchAndRecordVideo()
         {
-            // The 'Page' object is automatically available via inheritance from PageTest
-
-            // 2. Perform test actions
-            await Page.GotoAsync("https://www.google.com");
-            await Page.FillAsync("[aria-label=\"Search\"]", "Playwright .NET video recording");
-            await Page.PressAsync("[aria-label=\"Search\"]", "Enter");
+            // Using a site designed for automation avoids issues like CAPTCHAs.
+            await Page.GotoAsync("https://playwright.dev/");
             
-            // Wait for search results
-            await Page.WaitForSelectorAsync("#search");
-
-            // Assert something to prove the test works
-            NUnit.Framework.Assert.That(await Page.TitleAsync(), Does.Contain("Playwright .NET video recording - Google Search"));
+            // Handle the cookie consent banner that might overlay the search button.
+            // This step is now conditional to prevent timeouts if the banner doesn't appear.
+            var cookieBannerButton = Page.GetByRole(AriaRole.Button, new() { Name = "Switch to light mode" });
+            if (await cookieBannerButton.IsVisibleAsync())
+            {
+                await cookieBannerButton.ClickAsync();
+            }
+            
+            // Click the search button
+            await Page.GetByRole(AriaRole.Button, new() { Name = "Search" }).ClickAsync();
+            
+            // Fill the search input that appears in the modal
+            await Page.Locator("input.DocSearch-Input").FillAsync("video recording");
+            
+            // Wait for search results to appear
+            await Page.WaitForSelectorAsync(".DocSearch-Hit a");
+            
+            // Assert that the first result is visible and contains the expected text
+            NUnit.Framework.Assert.That(await Page.Locator(".DocSearch-Hit a").First.TextContentAsync(), Does.Contain("testOptions.video"));
             
             // NOTE: The video is saved *automatically* when the BrowserContext is closed 
             // after the test completes, due to inheriting from PageTest.
