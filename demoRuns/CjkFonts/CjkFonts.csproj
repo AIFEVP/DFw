@@ -11,4 +11,33 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.2" PrivateAssets="all" />
   </ItemGroup>
 
+  <Target Name="DownloadAndCopyNotoCJKFonts" BeforeTargets="Build">
+  <Message Text="✅ started ``Noto CJK fonts download and extracted to $(FontsDir)" Importance="high" />
+    <PropertyGroup>
+      <FontsDir>$(ProjectDir)wwwroot\fonts</FontsDir>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <!-- Define the Noto CJK fonts you want to download -->
+      <NotoFont Include="https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKsc-Regular.ttf.zip">
+        <OutputFileName>NotoSansCJKsc-Regular.ttf.zip</OutputFileName>
+      </NotoFont>
+      <NotoFont Include="https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKjp-Regular.ttf.zip">
+        <OutputFileName>NotoSansCJKjp-Regular.ttf.zip</OutputFileName>
+      </NotoFont>
+      <!-- Add more fonts here as needed -->
+    </ItemGroup>
+
+    <!-- Create the target directory if it doesn't exist -->
+    <MakeDir Directories="$(FontsDir)" Condition="!Exists('$(FontsDir)')" />
+
+    <!-- 
+      Use PowerShell to download and extract the fonts.
+      This is cross-platform compatible (Windows, macOS, Linux with PowerShell Core).
+    -->
+    <Exec Command="powershell -NoProfile -Command &quot;&amp; { Invoke-WebRequest -Uri '%(NotoFont.Identity)' -OutFile '$(FontsDir)\%(NotoFont.OutputFileName)'; Expand-Archive -Path '$(FontsDir)\%(NotoFont.OutputFileName)' -DestinationPath '$(FontsDir)' -Force; Remove-Item -Path '$(FontsDir)\%(NotoFont.OutputFileName)'; }&quot;" />
+
+    <Message Text="✅ Noto CJK fonts downloaded and extracted to $(FontsDir)" Importance="high" />
+  </Target>
+
 </Project>
