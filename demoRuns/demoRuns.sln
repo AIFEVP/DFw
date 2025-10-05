@@ -1,0 +1,35 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CjkFonts", "CjkFonts\CjkFonts.csproj", "{6FCE7466-848F-E687-EE00-D95AB7CDA00C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pkgs", "Pkgs", "{9D04EDA7-9286-9C38-2C42-87A0303CF8B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetLib", "Pkgs\NugetLib\NugetLib.csproj", "{CF5A9E68-9276-8D94-9B1F-D796AE884B15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6FCE7466-848F-E687-EE00-D95AB7CDA00C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FCE7466-848F-E687-EE00-D95AB7CDA00C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FCE7466-848F-E687-EE00-D95AB7CDA00C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FCE7466-848F-E687-EE00-D95AB7CDA00C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF5A9E68-9276-8D94-9B1F-D796AE884B15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF5A9E68-9276-8D94-9B1F-D796AE884B15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF5A9E68-9276-8D94-9B1F-D796AE884B15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF5A9E68-9276-8D94-9B1F-D796AE884B15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CF5A9E68-9276-8D94-9B1F-D796AE884B15} = {9D04EDA7-9286-9C38-2C42-87A0303CF8B9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F63ABC7C-C1B8-48AB-8D82-653A1C5046A0}
+	EndGlobalSection
+EndGlobal
