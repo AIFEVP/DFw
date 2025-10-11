@@ -7,7 +7,7 @@ const serverArgs = [
     '-y', 
     '@playwright/mcp@latest', 
     '--isolated', // Use a clean browser context for this run
-    '--headless'   // Run the browser without a visible UI
+    //'--headless'   // Run the browser without a visible UI
 ];
 
 async function runPlaywrightMCPClient() {
@@ -32,6 +32,8 @@ async function runPlaywrightMCPClient() {
 
         // 4. Discover the tools the server exposes
         const listToolsResponse = await client.listTools({});
+        console.log(`${listToolsResponse.tools}`);
+        console.log(JSON.stringify(listToolsResponse.tools, null, 2))
         const navigateTool = listToolsResponse.tools.find(t => t.name === 'browser_navigate');
 
         if (navigateTool) {
