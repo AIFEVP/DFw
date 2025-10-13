@@ -15,12 +15,12 @@ server_info = StreamableHttpServerInfo(url=f"http://localhost:{SERVER_PORT}/mcp"
 # Create the MCPToolset. We explicitly select browser automation tools.
 toolset = MCPToolset(
     server_info=server_info,
-    tool_names=[
-        "browser_navigate",               # For going to a URL
-        "browser_snapshot", # For giving the LLM the DOM context
-        "browser_click",                  # For clicking on elements
-        "browser_fill_form"               # For filling out forms
-    ]
+    #tool_names=[
+    #    "browser_navigate",               # For going to a URL
+    #    "browser_snapshot", # For giving the LLM the DOM context
+    #    "browser_click",                  # For clicking on elements
+    #    "browser_fill_form"               # For filling out forms
+    #]
 )
 
 print(os.environ.get("GEMINI_KEY"))
