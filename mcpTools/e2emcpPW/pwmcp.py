@@ -66,8 +66,54 @@ user_query = ChatMessage.from_user(
 result = browser_agent.run(messages=[user_query])
 
 # The final answer is in the last message of the result's replies
-# final_reply = result["final_response"][-1].content
-print("\n--- Final Agent Response ---")
-print(result)
-
+final_reply = result["messages"][-1].text
+print("\n--- Final Agent Response ------------------------")
+# print(final_reply)
 # Note: Remember to stop the Playwright MCP server process when done (e.g., using 'pkill -f playwright')
+
+# Assuming 'result' is the dictionary returned by browser_agent.run(...)
+
+print("\n--- Agent Execution Steps (The Generated Test) ---")
+step_counter = 1
+
+from haystack.dataclasses import ToolCall, TextContent # Make sure these are imported
+
+# Assuming 'result' is the dictionary returned by browser_agent.run(...)
+
+print("\n--- Agent Execution Steps (The Generated Test) ---")
+step_counter = 1
+
+for message in result["messages"]:
+    # Check the structured content list
+    content_parts = message._content 
+
+    # Skip messages with no structured content
+    if not content_parts:
+        continue
+    
+    # Check the first content part's class
+    first_part = content_parts[0]
+
+    # 1. Look for the Agent's Tool Call (The Action)
+    if message.role.value == 'assistant' and isinstance(first_part, ToolCall):
+        
+        tool_call = first_part # It IS the ToolCall object
+        tool_name = tool_call.tool_name
+        args = tool_call.arguments
+
+        print(f"[{step_counter}] 🤖 AGENT ACTION: **{tool_name}**")
+        print(f"    - Args: {args}")
+        step_counter += 1
+
+    # 2. Look for the Tool's Response (The Observation/Verification)
+    elif message.role.value == 'tool':
+        # Safely extract tool name from the origin attribute
+        tool_name = message._content[0].origin.tool_name if message._content and hasattr(message._content[0], 'origin') else "UNKNOWN TOOL"
+        print(f"   ✅ TOOL OBSERVATION: Tool call for **{tool_name}** successful. (Check full transcript for details)")
+
+    # 3. Stop when the final text is reached
+    # The final message is from the assistant and contains simple text content
+    elif message.role.value == 'assistant' and isinstance(first_part, TextContent):
+        print(f"[{step_counter}] 🏁 FINAL VERIFICATION: Test passed.")
+        print(f"    - Final Result: {message.text}")
+        break
