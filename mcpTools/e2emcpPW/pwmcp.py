@@ -4,6 +4,7 @@ from haystack.dataclasses import ChatMessage
 from haystack_integrations.components.generators.google_genai import GoogleGenAIChatGenerator
 from haystack_integrations.tools.mcp import MCPToolset, StreamableHttpServerInfo
 from haystack.components.generators.utils import print_streaming_chunk
+from haystack.utils import Secret
 
 # --- 1. Configure the Playwright Toolset ---
 # Define the connection info for the running Playwright MCP server
@@ -16,17 +17,19 @@ toolset = MCPToolset(
     server_info=server_info,
     tool_names=[
         "browser_navigate",               # For going to a URL
-        "browser_get_accessibility_snapshot", # For giving the LLM the DOM context
+        "browser_snapshot", # For giving the LLM the DOM context
         "browser_click",                  # For clicking on elements
         "browser_fill_form"               # For filling out forms
     ]
 )
 
+print(os.environ.get("GEMINI_KEY"))
+
 # --- 2. Configure the LLM Generator (Gemini) ---
 # The Agent requires a Chat Generator that supports tool/function calling
 chat_generator = GoogleGenAIChatGenerator(
     model="gemini-2.5-flash",
-    api_key=os.environ.get("GEMINI_API_KEY")
+    api_key=Secret.from_env_var("GEMINI_KEY")
 )
 
 # Define a system message to guide the LLM's behavior
@@ -47,17 +50,24 @@ browser_agent = Agent(
     exit_conditions=["text"] # Exit when the LLM replies with a final text message
 )
 
+
+LOGIN_URL = "https://practicetestautomation.com/practice-test-login/"
 # --- 4. Run the Agent ---
 print("--- Starting Haystack Browser Agent ---")
 user_query = ChatMessage.from_user(
-    "Go to the Haystack documentation website at https://haystack.deepset.ai/ and find the main link for the 'Agents' concept."
+    f"1. Navigate to the login page at '{LOGIN_URL}'. "
+    "2. Log in using the username 'student' and the password 'Password123' "
+    "by filling the respective form fields and clicking the 'Submit' button. "
+    "3. Once the page redirects to the secure area, find the element that contains the success message, "
+    "which starts with the text 'Congratulations!'. "
+    "4. Return ONLY the full text content of that success message element."
 )
 
 result = browser_agent.run(messages=[user_query])
 
 # The final answer is in the last message of the result's replies
-final_reply = result["replies"][-1].content
+# final_reply = result["final_response"][-1].content
 print("\n--- Final Agent Response ---")
-print(final_reply)
+print(result)
 
 # Note: Remember to stop the Playwright MCP server process when done (e.g., using 'pkill -f playwright')
