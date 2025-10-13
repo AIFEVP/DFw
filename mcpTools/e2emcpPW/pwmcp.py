@@ -61,6 +61,7 @@ user_query = ChatMessage.from_user(
     "3. Once the page redirects to the secure area, find the element that contains the success message, "
     "which starts with the text 'Congratulations!'. "
     "4. Return ONLY the full text content of that success message element."
+    "5. After successfully executing and verifying the scenario, emit the complete, runnable code for this test using the Playwright for .NET (C#) framework, utilizing NUnit or MSTest conventions."
 )
 
 result = browser_agent.run(messages=[user_query])
