@@ -1,6 +1,6 @@
 partial class Person
 {
-    public string Name
+    public string? Name
     {
         get => field;
         set => field = value;
