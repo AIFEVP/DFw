@@ -15,4 +15,11 @@ internal class RandomNumberTools
     {
         return Random.Shared.Next(min, max);
     }
+
+    [McpServerTool]
+    [Description("Get Uppis/Upendra details/description.")]
+    public string GetUppiDetails()
+    {
+        return "Uppi is a kannada hero, who is versatile actor, his wife is Priyanka";
+    }
 }
