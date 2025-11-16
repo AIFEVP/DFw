@@ -1,7 +1,51 @@
-# MCP Server
+# MCP Server with Authentication
 
 This README was created using the C# MCP server project template.
 It demonstrates how you can easily create an MCP server using C# and publish it as a NuGet package.
+
+## Authentication
+
+This MCP server supports optional API key-based authentication to secure access to tools.
+
+### Enabling Authentication
+
+To enable authentication, set the `VSMCP_API_KEY` environment variable with your desired API key:
+
+**Windows:**
+```powershell
+$env:VSMCP_API_KEY="your-secret-api-key"
+```
+
+**Linux/macOS:**
+```bash
+export VSMCP_API_KEY="your-secret-api-key"
+```
+
+### Using Authentication
+
+When authentication is enabled, all tool calls must include the `apiKey` parameter matching the configured API key:
+
+```json
+{
+  "tool": "GetRandomNumber",
+  "arguments": {
+    "min": 1,
+    "max": 10,
+    "apiKey": "your-secret-api-key"
+  }
+}
+```
+
+If the `VSMCP_API_KEY` environment variable is not set, authentication is disabled and the `apiKey` parameter is optional.
+
+### Security Considerations
+
+- Store your API key securely using environment variables or secret management systems
+- Never commit API keys to source control
+- Use different API keys for different environments (development, staging, production)
+- Rotate API keys periodically
+
+## MCP Server Configuration
 
 The MCP server is built as a self-contained application and does not require the .NET runtime to be installed on the target machine.
 However, since it is self-contained, it must be built for each target platform separately.
