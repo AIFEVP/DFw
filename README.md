@@ -15,10 +15,6 @@ This repository contains various demonstration projects and tools for different 
 - **utils**: Utility scripts and tools
 - **yashmcp**: Additional MCP tools
 
-## Documentation
-
-- [**GitHub Copilot Agents Guide**](COPILOT_AGENTS.md) - Comprehensive guide explaining the differences between Cloud Agent, Chat, and CLI Agent
-
 ## GitHub Copilot Integration
 
 This repository includes examples of MCP (Model Context Protocol) servers that can be used with GitHub Copilot Chat in VS Code and Visual Studio. See the [mcpTools](mcpTools/) directory for more information.
