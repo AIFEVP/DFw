@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
-  "description": "<your description here>",
+  "description": "MCP server with authentication support for secure tool access",
   "name": "io.github.<your GitHub username here>/<your repo name>",
   "version": "0.1.0-beta",
   "packages": [
@@ -12,7 +12,13 @@
         "type": "stdio"
       },
       "packageArguments": [],
-      "environmentVariables": []
+      "environmentVariables": [
+        {
+          "name": "VSMCP_API_KEY",
+          "description": "Optional API key for authentication. If set, all tool calls must include the matching apiKey parameter.",
+          "required": false
+        }
+      ]
     }
   ],
   "repository": {
